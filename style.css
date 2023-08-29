@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+*{
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}
+
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #bdbdbd;
+}
+
+.calculator {
+    height: 500px;
+    width: 600px;
+}
+
+.display-ac,
+.calc-body {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.body-buttons {
+    display: flex;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+.display {
+    background-color: #ffffff;
+
+}
+
+.display,
+.body-buttons {
+    flex-basis: 450px;
+}
+
+.ac {
+    flex-basis: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #129688;
+    color: white;
+}
+
+.operations {
+    flex-basis: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #757575;
+    color: white;
+}
+
+.nine,
+.eight,
+.seven,
+.six,
+.five,
+.four,
+.three,
+.two,
+.one,
+.dot,
+.zero,
+.equals {
+    height: 100px;
+    flex-basis: 450px;
+    background-color: #212121;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nine:hover,
+.eight:hover,
+.seven:hover,
+.six:hover,
+.five:hover,
+.four:hover,
+.three:hover,
+.two:hover,
+.one:hover,
+.dot:hover,
+.zero:hover,
+.equals:hover, 
+.ac:hover,
+.operations:hover {
+    cursor: pointer;
+}
