@@ -24,6 +24,9 @@ let mulButton = document.querySelector('.operations-mul');
 
 
 
+
+
+
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -61,13 +64,24 @@ function clearDisplay() {
 }
 
 function updateDisplay (value) {
-    if(value === 'x') {
         let currentValue = displayScreen.textContent;
-        displayScreen.innerHTML = `${currentValue}&times;`
+        if(canDisplayValue(value)) {
+            currentValue += value;
+            displayScreen.textContent = currentValue;
+        }        
+}
+
+function canDisplayValue(value) {
+    let displayValue = displayScreen.textContent
+    let last = displayValue[displayValue.length-1];
+    if(isNaN(parseInt(value))) {
+        if (last !== '.' &&  last !== '÷' && last !== 'x' && last !== '+' && last !== '-' && last !== '×') {
+            return true;
+        } else {
+            return false;
+        }
     } else {
-        let currentValue = displayScreen.textContent;
-        currentValue += value;
-        displayScreen.textContent = currentValue;
+        return true
     }
     
 }
@@ -90,11 +104,7 @@ dot.addEventListener('mousedown', ()=> updateDisplay('.'));
 addButton.addEventListener('mousedown', ()=> updateDisplay('+'));
 subButton.addEventListener('mousedown', ()=>updateDisplay('-'));
 divButton.addEventListener('mousedown', ()=>updateDisplay('÷'));
-mulButton.addEventListener('mousedown', ()=>updateDisplay('x'));
-
-
-
-
+mulButton.addEventListener('mousedown', ()=>updateDisplay('×'));
 
 
 
