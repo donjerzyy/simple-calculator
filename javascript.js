@@ -82,9 +82,154 @@ function canDisplayValue(value) {
         }
     } else {
         return true
-    }
-    
+    }    
 }
+
+
+function operate() {
+    const userValue = displayScreen.textContent.trim();
+    if(userValue.length === 0 || userValue.length === 1 || userValue.length === 2) {
+        return 
+    } else {
+        console.log(`else hit`);
+        let userValueArray = Array.from(userValue);
+        if(isNaN(parseFloat(userValueArray[0]))) {
+            userValueArray.unshift('0');
+        }
+
+        if(isNaN(parseFloat(userValueArray[userValueArray.length - 1]))) {
+            userValueArray.push('0');
+        }
+
+        console.log(userValueArray);
+
+        let start;
+        let end;
+        let result;
+
+        while(userValueArray.indexOf('÷') != -1) {
+            start = userValueArray.indexOf('÷') - 1;
+            end = userValueArray.indexOf('÷') + 1;
+            if(userValueArray[end] === 0) {
+                displayScreen.textContent = "MATH ERROR";
+                return
+            } else {
+                result = divide(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
+                userValueArray.splice(start,3);
+                if(userValueArray.length === 0) {
+                    displayScreen.textContent = `${result}`
+                    return
+                }
+                if(isNaN(parseFloat(userValueArray[0]))) {
+                    userValueArray.unshift(`${result}`);
+                } else if (isNaN(parseFloat(userValueArray[userValueArray.length-1]))) {
+                    userValueArray.push(`${result}`);
+                } else {
+                    let temp;
+                    for(let j=0; j<userValueArray.length; j++) {
+                        temp = j;
+                        if(isNaN(userValueArray[j])) {
+                           if(isNaN(userValueArray[j+1])){
+                                break
+                           } 
+                        }
+                    }
+                    userValueArray.splice(temp+1,0,`${result}`);
+                }   
+
+            }
+
+        }
+
+
+        while(userValueArray.indexOf('×') != -1) {
+            start = userValueArray.indexOf('×') - 1;
+            end = userValueArray.indexOf('×') + 1;
+            result = multiply(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
+            userValueArray.splice(start,3);
+            if(userValueArray.length === 0) {
+                displayScreen.textContent = `${result}`
+                return
+             }
+            if(isNaN(parseFloat(userValueArray[0]))) {
+                userValueArray.unshift(`${result}`);
+            } else if (isNaN(parseFloat(userValueArray[userValueArray.length-1]))) {
+                userValueArray.push(`${result}`);
+            } else {
+                let temp;
+                for(let j=0; j<userValueArray.length; j++) {
+                    temp = j;
+                    if(isNaN(userValueArray[j])) {
+                        if(isNaN(userValueArray[j+1])){
+                            break
+                        } 
+                    }
+                }
+                userValueArray.splice(temp+1,0,`${result}`);
+            }   
+        }
+
+        while(userValueArray.indexOf('+') != -1) {
+            start = userValueArray.indexOf('+') - 1;
+            end = userValueArray.indexOf('+') + 1;
+            result = add(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
+            userValueArray.splice(start,3);
+            if(userValueArray.length === 0) {
+                displayScreen.textContent = `${result}`
+                return
+             }
+            if(isNaN(parseFloat(userValueArray[0]))) {
+                userValueArray.unshift(`${result}`);
+            } else if (isNaN(parseFloat(userValueArray[userValueArray.length-1]))) {
+                userValueArray.push(`${result}`);
+            } else {
+                let temp;
+                for(let j=0; j<userValueArray.length; j++) {
+                    temp = j;
+                    if(isNaN(userValueArray[j])) {
+                        if(isNaN(userValueArray[j+1])){
+                            break
+                        } 
+                    }
+                }
+                userValueArray.splice(temp+1,0,`${result}`);
+            }   
+        }
+
+
+        while(userValueArray.indexOf('-') != -1) {
+            start = userValueArray.indexOf('-') - 1;
+            end = userValueArray.indexOf('-') + 1;
+            result = add(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
+            userValueArray.splice(start,3);
+            if(userValueArray.length === 0) {
+                displayScreen.textContent = `${result}`
+                return
+             }
+            if(isNaN(parseFloat(userValueArray[0]))) {
+                userValueArray.unshift(`${result}`);
+            } else if (isNaN(parseFloat(userValueArray[userValueArray.length-1]))) {
+                userValueArray.push(`${result}`);
+            } else {
+                let temp;
+                for(let j=0; j<userValueArray.length; j++) {
+                    temp = j;
+                    if(isNaN(userValueArray[j])) {
+                        if(isNaN(userValueArray[j+1])){
+                            break
+                        } 
+                    }
+                }
+                userValueArray.splice(temp+1,0,`${result}`);
+            }   
+        }
+
+        return userValueArray[0];
+    }
+}
+
+
+
 
 
 
@@ -105,6 +250,7 @@ addButton.addEventListener('mousedown', ()=> updateDisplay('+'));
 subButton.addEventListener('mousedown', ()=>updateDisplay('-'));
 divButton.addEventListener('mousedown', ()=>updateDisplay('÷'));
 mulButton.addEventListener('mousedown', ()=>updateDisplay('×'));
+equals.addEventListener('mousedown', ()=> operate());
 
 
 
