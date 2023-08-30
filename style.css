@@ -43,7 +43,6 @@
 
 .display {
     background-color: #ffffff;
-
 }
 
 .display,
@@ -60,7 +59,11 @@
     color: white;
 }
 
-.operations {
+.operations,
+.operations-add,
+.operations-sub,
+.operations-div,
+.operations-mul {
     flex-basis: 150px;
     display: flex;
     justify-content: center;
@@ -103,6 +106,10 @@
 .zero:hover,
 .equals:hover, 
 .ac:hover,
-.operations:hover {
+.operations:hover,
+.operations-add:hover,
+.operations-sub:hover,
+.operations-div:hover,
+.operations-mul:hover {
     cursor: pointer;
 }
