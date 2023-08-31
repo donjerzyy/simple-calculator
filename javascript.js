@@ -199,6 +199,33 @@ function operate() {
             }   
         }
 
+          while(userValueArray.indexOf('-') != -1) {
+            start = userValueArray.indexOf('-') - 1;
+            end = userValueArray.indexOf('-') + 1;
+            result = subtract(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
+            userValueArray.splice(start,3);
+            if(userValueArray.length === 0) {
+                displayScreen.textContent = `${result}`
+                return
+             }
+            if(isNaN(parseFloat(userValueArray[0]))) {
+                userValueArray.unshift(`${result}`);
+            } else if (isNaN(parseFloat(userValueArray[userValueArray.length-1]))) {
+                userValueArray.push(`${result}`);
+            } else {
+                let temp;
+                for(let j=0; j<userValueArray.length; j++) {
+                    temp = j;
+                    if(isNaN(userValueArray[j])) {
+                        if(isNaN(userValueArray[j+1])){
+                            break
+                        } 
+                    }
+                }
+                userValueArray.splice(temp+1,0,`${result}`);
+            }   
+        }
+
         while(userValueArray.indexOf('+') != -1) {
             start = userValueArray.indexOf('+') - 1;
             end = userValueArray.indexOf('+') + 1;
@@ -227,32 +254,7 @@ function operate() {
         }
 
 
-        while(userValueArray.indexOf('-') != -1) {
-            start = userValueArray.indexOf('-') - 1;
-            end = userValueArray.indexOf('-') + 1;
-            result = subtract(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
-            userValueArray.splice(start,3);
-            if(userValueArray.length === 0) {
-                displayScreen.textContent = `${result}`
-                return
-             }
-            if(isNaN(parseFloat(userValueArray[0]))) {
-                userValueArray.unshift(`${result}`);
-            } else if (isNaN(parseFloat(userValueArray[userValueArray.length-1]))) {
-                userValueArray.push(`${result}`);
-            } else {
-                let temp;
-                for(let j=0; j<userValueArray.length; j++) {
-                    temp = j;
-                    if(isNaN(userValueArray[j])) {
-                        if(isNaN(userValueArray[j+1])){
-                            break
-                        } 
-                    }
-                }
-                userValueArray.splice(temp+1,0,`${result}`);
-            }   
-        }
+      
 
         return userValueArray[0];
     }
