@@ -75,6 +75,20 @@ function canDisplayValue(value) {
     let displayValue = displayScreen.textContent
     let last = displayValue[displayValue.length-1];
     if(isNaN(parseInt(value))) {
+
+        if(value === '.') {
+            let t = displayValue.length - 1
+            while (t>=0) {
+                if(displayValue[t] === '+' || displayValue[t] === '-' || displayValue[t] === '÷' || displayValue[t]=== '×' ) {
+                    break
+                } 
+                if(displayValue[t] === '.') {
+                    return false
+                }
+                t -=1
+            }
+        }
+
         if (last !== '.' &&  last !== '÷' && last !== 'x' && last !== '+' && last !== '-' && last !== '×') {
             return true;
         } else {
@@ -91,8 +105,24 @@ function operate() {
     if(userValue.length === 0 || userValue.length === 1 || userValue.length === 2) {
         return 
     } else {
-        console.log(`else hit`);
-        let userValueArray = Array.from(userValue);
+        let userValueArray = [];
+        let numValue = ""
+
+        for (let p = 0; p<userValue.length; p++) {
+            if(userValue[p] === '+' || userValue[p] === '-' || userValue[p] === '÷' || userValue[p]=== '×' ) {
+                if (numValue !== "") {
+                    userValueArray.push(numValue);
+                    numValue = ""
+                }
+                userValueArray.push(userValue[p]);
+            } else {
+                numValue += userValue[p];
+            }
+        }
+        if (numValue !== "") {
+                userValueArray.push(numValue);
+            }
+        
         if(isNaN(parseFloat(userValueArray[0]))) {
             userValueArray.unshift('0');
         }
@@ -200,7 +230,7 @@ function operate() {
         while(userValueArray.indexOf('-') != -1) {
             start = userValueArray.indexOf('-') - 1;
             end = userValueArray.indexOf('-') + 1;
-            result = add(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
+            result = subtract(parseFloat(userValueArray[start]), parseFloat(userValueArray[end]));
             userValueArray.splice(start,3);
             if(userValueArray.length === 0) {
                 displayScreen.textContent = `${result}`
